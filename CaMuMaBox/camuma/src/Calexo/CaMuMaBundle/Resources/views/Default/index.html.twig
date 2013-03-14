@@ -1,0 +1,19 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<p>Commandes :<br/>
+<ul>
+<li><a href="{{ path('cmd') }}/status">status</a></li>
+<li><a href="{{ path('cmd') }}/toggle">toggle</a></li>
+<li><a href="{{ path('cmd') }}/prev">prev</a></li>
+<li><a href="{{ path('cmd') }}/next">next</a></li>
+<li><a href="{{ path('cmd') }}/shuffle">shuffle</a></li>
+<li>id/XXXXXX</li>
+</ul>
+</p>
+
+<p><textarea cols=80 rows=10>
+{{  ret }}
+</textarea>
+</p>
+{% endblock %}

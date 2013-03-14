@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CMD="~/camuma.sh"
+CMD="/home/pi/camuma.sh"
 
 echo "CaMuMa :"
 while read -n1 c

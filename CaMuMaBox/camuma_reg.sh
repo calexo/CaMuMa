@@ -5,8 +5,8 @@ SERIAL=`cat /proc/cpuinfo | grep Serial | cut -d':' -f2 | tr -d ' '`
 echo SERIAL : $SERIAL
 
 read ACTCOD
-echo http://192.168.2.108:8080/camuma_portal/app_dev.php/api/reg/$SERIAL/$IP/$ACTCOD
+echo http://camuma.calexo.com/api/reg/$SERIAL/$IP/$ACTCOD
 
-#sleep 10
+sleep 10
 
-curl http://192.168.2.108:8080/camuma_portal/app_dev.php/api/reg/$SERIAL/$IP/$ACTCOD
+curl http://camuma.calexo.com/api/reg/$SERIAL/$IP/$ACTCOD

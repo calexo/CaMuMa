@@ -27,8 +27,9 @@ ACTION=="add", ENV{ID_FS_TYPE}=="vfat|ntfs", ENV{mount_options}="$env{mount_opti
 #ENV{mount_options}="$env{mount_options},iocharset=iso8859-1,codepage=850"
 
 # automount ntfs filesystems using ntfs-3g driver
-ACTION=="add", ENV{ID_FS_TYPE}=="ntfs", RUN+="/bin/mount -t ntfs-3g -o %E{mount_options},iocharset=iso8859-1,codepage=850 /dev/%k '/media/%E{dir_name}'"
+ACTION=="add", ENV{ID_FS_TYPE}=="ntfs", RUN+="/bin/mount -t ntfs-3g -o %E{mount_options},iocharset=iso8859-1,codepage=850,locale=fr_FR.iso8859-1 /dev/%k '/media/%E{dir_name}'"
 # automount all other filesystems
+#ACTION=="add", ENV{ID_FS_TYPE}=="exfat", RUN+="/bin/mount -t exfat -o %E{mount_options},iocharset=iso8859-1,codepage=850 /dev/%k '/media/%E{dir_name}'"
 ACTION=="add", ENV{ID_FS_TYPE}!="ntfs", RUN+="/bin/mount -t auto -o %E{mount_options},iocharset=iso8859-1,codepage=850 /dev/%k '/media/%E{dir_name}'"
 
 # clean up after device removal

@@ -4,6 +4,6 @@ echo IP : $IP
 SERIAL=`cat /proc/cpuinfo | grep Serial | cut -d':' -f2 | tr -d ' '`
 echo SERIAL : $SERIAL
 
-echo http://192.168.2.108:8080/camuma_portal/app_dev.php/api/up/$SERIAL/$IP
+#echo http://192.168.2.108:8080/camuma_portal/app_dev.php/api/up/$SERIAL/$IP
 
-curl http://192.168.2.108:8080/camuma_portal/app_dev.php/api/up/$SERIAL/$IP
+curl http://api.camuma.calexo.com/box/up/$SERIAL/$IP
