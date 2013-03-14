@@ -1,19 +1,63 @@
 #!/bin/bash
 
+MPC=`which mpc`
+BC="`which bc` -l"
+
+NORMAL_VOLUME=80
+FADED_VOLUME=30
+FADE_TIME=2
+
+fadeout() {
+	VOLUME=$(($NORMAL_VOLUME - 5))
+	while [ $VOLUME -ge $FADED_VOLUME ]
+	do
+	    $MPC volume $VOLUME > /dev/null
+	    VOLUME=$(($VOLUME - 5))
+	    sleep `echo "$FADE_TIME/(5*($NORMAL_VOLUME - $FADED_VOLUME))" | $BC`
+	    mpc volume
+	done
+}
+
+fadein() {
+	VOLUME=$(($FADED_VOLUME + 5))
+	while [ $VOLUME -le $NORMAL_VOLUME ]
+	do
+	    $MPC volume $VOLUME > /dev/null
+	    VOLUME=$(($VOLUME + 5))
+	    sleep `echo "$FADE_TIME/(5*($NORMAL_VOLUME - $FADED_VOLUME))" | $BC`
+	    mpc volume
+	done
+}
+
 case "$1" in
-    "stop"|"play"|"toggle"|"next"|"prev"|"shuffle"|"status"|"random")
-	mpc $1
-	;;
+    "toggle"|"shuffle"|"status"|"random")
+		$MPC $1
+		;;
+	"next"|"prev")
+		fadeout
+		$MPC $1
+		fadein
+		;;
+	"play")
+		$MPC play
+		fadein
+		;;
+	"stop")
+		fadeout
+		$MPC stop
+		;;
     [0-9][0-9][0-9][0-9][0-9][0-9])
-	sudo dos2unix -n /media/USB/camuma.lst /media/USB/camuma.lst.unix
-	mpc clear
-	cat /media/USB/camuma.lst.unix | grep $1 | cut -d':' -f2 | mpc add
-	echo ID : $1
-	cat /media/USB/camuma.lst.unix | grep $1 | cut -d':' -f2
-	mpc play
-	;;
+		fadeout
+		sudo dos2unix -n /media/USB/camuma.lst /home/pi/camuma.lst.unix
+		$MPC clear
+		cat /home/pi/camuma.lst.unix | grep $1 | cut -d':' -f2 | $MPC add
+		echo ID : $1
+		cat /home/pi/camuma.lst.unix | grep $1 | cut -d':' -f2
+		$MPC play
+		fadein
+		;;
     *)
-	echo Error
+		echo Error
 	;;
 esac	
 
