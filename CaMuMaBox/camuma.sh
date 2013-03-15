@@ -32,6 +32,12 @@ fadein() {
 }
 
 case "$1" in
+	"poweron")
+        /usr/bin/expect ~pi/vsx_on.expect &
+        ;;
+    "poweroff")
+        /usr/bin/expect ~pi/vsx_off.expect &
+        ;;
     "toggle"|"shuffle"|"status"|"random")
 		$MPC $1
 		;;
@@ -50,7 +56,7 @@ case "$1" in
 		;;
     [0-9][0-9][0-9][0-9][0-9][0-9])
 		fadeout
-		sudo dos2unix -n /media/USB/camuma.lst /home/pi/camuma.lst.unix
+		#sudo dos2unix -n /media/USB/camuma.lst /home/pi/camuma.lst.unix
 		$MPC clear
 		cat /home/pi/camuma.lst.unix | grep $1 | cut -d':' -f2 | $MPC add
 		echo ID : $1

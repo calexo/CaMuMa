@@ -1,0 +1,8 @@
+spawn telnet 192.168.1.56
+send "\r"
+expect "R"
+send "\rPF\r"
+send "\r"
+expect "R"
+send "\r?P\r"
+expect "PWR1"
