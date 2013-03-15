@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from socket import *
 import thread
 import subprocess
@@ -16,8 +18,24 @@ def handler(clientsock,addr):
 		if "" != cmd:
 			print repr(addr) + ' recv:' + cmd
 			if "close" == cmd: break # type 'close' on client console to close connection from the server side
+			if "poweron" == cmd:
+				subprocess.check_call(["/home/pi/camuma.sh", "poweron"])
+			if "poweroff" == cmd:
+				subprocess.check_call(["/home/pi/camuma.sh", "poweroff"])
 			if "toggle" == cmd:
 				subprocess.check_call(["/home/pi/camuma.sh", "toggle"])
+			if "next" == cmd:
+				subprocess.check_call(["/home/pi/camuma.sh", "next"])
+			if "prev" == cmd:
+				subprocess.check_call(["/home/pi/camuma.sh", "prev"])
+			if "shuffle" == cmd:
+				subprocess.check_call(["/home/pi/camuma.sh", "shuffle"])
+			if "random" == cmd:
+				subprocess.check_call(["/home/pi/camuma.sh", "random"])
+			if "play" == cmd:
+				subprocess.check_call(["/home/pi/camuma.sh", "play"])
+			if "stop" == cmd:
+				subprocess.check_call(["/home/pi/camuma.sh", "stop"])
 			reres = re.search("([0-9]{6})",cmd)
 			if reres:
 				subprocess.check_call(["/home/pi/camuma.sh", reres.group(1)])
