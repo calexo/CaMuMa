@@ -11,15 +11,17 @@ PORT = 5023
 def handler(clientsock,addr):
 	while 1:
 		data = clientsock.recv(BUFF)
-		print repr(addr) + ' recv:' + repr(data)
+		
 		cmd = data.strip()
-		if "close" == cmd: break # type 'close' on client console to close connection from the server side
-		if "toggle" == cmd:
-			subprocess.check_call(["/home/pi/camuma.sh", "toggle"])
-		reres = re.search("([0-9]{6})",cmd)
-		if reres:
-			subprocess.check_call(["/home/pi/camuma.sh", reres.group(1)])
-			clientsock.send("Launched album " + reres.group(1))
+		if "" != cmd:
+			print repr(addr) + ' recv:' + cmd
+			if "close" == cmd: break # type 'close' on client console to close connection from the server side
+			if "toggle" == cmd:
+				subprocess.check_call(["/home/pi/camuma.sh", "toggle"])
+			reres = re.search("([0-9]{6})",cmd)
+			if reres:
+				subprocess.check_call(["/home/pi/camuma.sh", reres.group(1)])
+				clientsock.send("Launched album " + reres.group(1))
 
 	clientsock.close()
 	print addr, "- closed connection" #log on console
