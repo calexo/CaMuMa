@@ -25,6 +25,7 @@ ACTION=="add", ENV{mount_options}="relatime"
 ACTION=="add", ENV{ID_FS_TYPE}=="vfat|ntfs", ENV{mount_options}="$env{mount_options},gid=100,dmask=000,fmask=111"
 
 #ENV{mount_options}="$env{mount_options},iocharset=iso8859-1,codepage=850"
+ENV{mount_options}="$env{mount_options},ro"
 
 # automount ntfs filesystems using ntfs-3g driver
 ACTION=="add", ENV{ID_FS_TYPE}=="ntfs", RUN+="/bin/mount -t ntfs-3g -o %E{mount_options},iocharset=iso8859-1,codepage=850,locale=fr_FR.iso8859-1 /dev/%k '/media/%E{dir_name}'"
