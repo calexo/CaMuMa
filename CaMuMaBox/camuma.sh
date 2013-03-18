@@ -6,7 +6,7 @@ BC="`which bc` -l"
 NORMAL_VOLUME=80
 FADED_VOLUME=30
 FADE_TIME=2
-SLEEP=0.1
+SLEEP=0.02
 
 fadeout() {
 	VOLUME=$(($NORMAL_VOLUME - 5))
