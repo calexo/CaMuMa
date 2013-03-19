@@ -14,7 +14,7 @@ do
 	    $CMD toggle
 	    ;;
 	"*")
-	    $CMD shuffle
+	    $CMD random
 	    ;;
 	[0-9])
 	    id=$id"$c"
