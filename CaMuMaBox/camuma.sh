@@ -8,6 +8,10 @@ FADED_VOLUME=30
 FADE_TIME=2
 SLEEP=0.02
 
+source camuma.cfg
+
+echo $USE_PIONEER_VSX
+
 fadeout() {
 	VOLUME=$(($NORMAL_VOLUME - 5))
 	while [ $VOLUME -ge $FADED_VOLUME ]

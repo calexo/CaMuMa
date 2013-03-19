@@ -1,24 +1,31 @@
 #!/bin/bash
-#sudo service mpd stop
-#while [ ping 192.168.1.112 -c 2 2>/dev/null >/dev/null ]
-#do
-#        echo "CaMuMa - Waiting network..."
-#        sleep 1
-#done
-#echo "CaMuMa - Mounting..."
-#sleep 3
-#sudo mount /mnt/music
+
+source camuma.cfg
+
 echo "CaMuMa - Reloading server..."
 #sudo service mpd start
 mpc pause
 mpc volume 80
+
 echo "CaMuMa - Updating database..."
-sudo dos2unix -n /media/USB/camuma.lst /home/pi/camuma.lst.unix &
 mpc update
+
+if [ "$PORTABLE_BOX" -eq 1 ]; then
+	echo "Preparing album list..."
+	sudo dos2unix -n /media/USB/camuma.lst /home/pi/camuma.lst.unix &
+fi
+
+if [ "$USE_PIONEER_VSX" -eq 1 -a "$BOOT_POWER_AMP" -eq 1 ]; then
+	echo "Preparing Pioneer VSX Amp..."
+	/home/pi/camuma.sh poweron
+fi
+
 ~/camuma_up.sh &
 python ~/daemon.py &
 #~/qrdecode.sh &
 
-aplay ~/Lightning.wav
+if [ "$BOOT_SOUND" -eq 1 ]; then
+	aplay ~/Lightning.wav
+fi
 
 ~/camumad.sh
