@@ -29,3 +29,5 @@ if [ "$BOOT_SOUND" -eq 1 ]; then
 fi
 
 ~/camumad.sh
+
+#~/qrdecode.sh &
