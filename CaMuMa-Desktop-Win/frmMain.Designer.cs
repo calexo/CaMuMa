@@ -138,7 +138,6 @@
             // cmbNotebook
             // 
             this.cmbNotebook.BackColor = System.Drawing.Color.White;
-            this.cmbNotebook.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbNotebook.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbNotebook.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbNotebook.ForeColor = System.Drawing.Color.Black;

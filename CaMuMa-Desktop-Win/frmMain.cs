@@ -996,7 +996,7 @@ namespace Calexo.CaMuMa
             if (hashHex!="")
                 cnt += "<span style=\"float:right;\"><en-media width=\"200\" height=\"200\" type=\"image/jpg\" hash=\"" + hashHex + "\"/></span>";
             cnt += sContent + "<br/>";
-            cnt += "<div>&copy; Calexo 2012 - Calexo Music Management - <a href=\"http://www.calexo.com\">http://www.calexo.com</a></div>";
+            cnt += "<div>&copy; Calexo 2013 - Calexo Music Management - <a href=\"http://www.calexo.com\">http://www.calexo.com</a></div>";
             cnt += "</en-note>";
 
             return cnt;
