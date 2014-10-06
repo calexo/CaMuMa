@@ -1,0 +1,27 @@
+#Config
+# PORTABLE_BOX
+# 0 : Network, ...
+# 1 : USB Key, ...
+PORTABLE_BOX=1
+
+# USE_PIONEER_VSX
+# 0 : No Pioneer VSX A/V Amp
+# 1 : Connected to a Pioneer VSX A/V Amp
+USE_PIONEER_VSX=0
+
+# BOOT_POWER_AMP
+# 0 : Does nothing
+# 1 : Power On Amp on CaMuMaBox Startup
+BOOT_POWER_AMP=0
+
+# BOOT_SOUND
+BOOT_SOUND=1
+
+# LCD SCREEN (NOKIA)
+NOKIA_SCREEN=1
+
+# BLUETOOTH
+BLUETOOTH=1
+
+# IR
+IR=1

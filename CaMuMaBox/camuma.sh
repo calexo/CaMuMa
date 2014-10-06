@@ -2,15 +2,17 @@
 
 MPC=`which mpc`
 BC="`which bc` -l"
+CURRENTIDFILE="/home/pi/current_id"
+STAT_FILE="/home/pi/stat_file"
 
-NORMAL_VOLUME=80
+NORMAL_VOLUME=100
 FADED_VOLUME=30
 FADE_TIME=2
 SLEEP=0.02
 
-source camuma.cfg
+source /home/pi/camuma.cfg
 
-echo $USE_PIONEER_VSX
+#echo $USE_PIONEER_VSX
 
 fadeout() {
 	VOLUME=$(($NORMAL_VOLUME - 5))
@@ -46,9 +48,9 @@ case "$1" in
 		$MPC $1
 		;;
 	"next"|"prev")
-		fadeout
+		# fadeout
 		$MPC $1
-		fadein
+		# fadein
 		;;
 	"play")
 		$MPC play
@@ -58,12 +60,18 @@ case "$1" in
 		fadeout
 		$MPC stop
 		;;
+	"stats")
+		date
+		cat $STAT_FILE
+		date
+		;;
     [0-9][0-9][0-9][0-9][0-9][0-9])
 		fadeout
 		#sudo dos2unix -n /media/USB/camuma.lst /home/pi/camuma.lst.unix
 		$MPC clear
 		cat /home/pi/camuma.lst.unix | grep $1 | cut -d':' -f2 | $MPC add
 		echo ID : $1
+		echo $1 > $CURRENTIDFILE
 		cat /home/pi/camuma.lst.unix | grep $1 | cut -d':' -f2
 		$MPC play
 		fadein
