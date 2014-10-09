@@ -71,3 +71,7 @@ if [ "$IR" -eq 1 ]; then
 fi
 
 #~/qrdecode.sh &
+
+# clear logs
+# rm -f /var/log/messages
+# rm -f /var/log/

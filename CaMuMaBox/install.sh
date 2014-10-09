@@ -14,7 +14,13 @@ apt-get install exfat-fuse -y
 
 apt-get install dos2unix -y
 
-apt-get install python-setuptools python-pip
+apt-get install python-setuptools python-pip -y
+
+apt-get install curl -y
+
+
+echo "snd_bcm2835" >> /etc/modules
+apt-get install alsa-utils -y
 
 
 apt-get autoremove -y
@@ -67,13 +73,17 @@ easy_install python-mpd2
 
 echo "dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait" > /boot/cmdline.txt
 
+
+apt-get install locales -y
+dpkg-reconfigure locales
+
 # Network Source
 #/etc/fstab
 #     //192.168.2.108/MP3   /mnt/music      cifs    uid=root,credentials=/etc/cifs.credentials,iocharset=iso8859-1,codepage=850        0       0
 #/etc/cifs.credentials
 #               username=mon_login_windows
 #               password=mon_p4ss
-#sudo chmod 600 /etc/cifs.credentials
+#chmod 600 /etc/cifs.credentials
 #mkdir /mnt/music
 #mount /mnt/music
 
@@ -142,3 +152,16 @@ apt-get clean
 # enleve les logs debug, qui finissent par remplir le disque
 # http://root42.blogspot.ch/2013/04/delay-warnings-when-using-usb-audio-on.html
 echo "options snd-usb-audio nrpacks=1" >> /etc/modprobe.d/alsa-base.conf
+
+######
+
+### Image
+apt-get install fbi -y
+
+
+## RASPBMC ##
+
+echo "export LANG=fr_FR@euro" >> /etc/profile
+echo "export LC_ALL=fr_FR@euro" >> /etc/profile
+echo "export LC_CTYPE=fr_FR@euro" >> /etc/profile
+echo "export LANGUAGE=fr_FR@euro" >> /etc/profile

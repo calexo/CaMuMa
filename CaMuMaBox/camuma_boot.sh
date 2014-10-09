@@ -42,6 +42,7 @@ sudo ~/camuma_daemons.sh
 
 if [ "$BOOT_SOUND" -eq 1 ]; then
 	aplay ~/Lightning.wav &
+	# SI DAC
 	aplay --device="default:CARD=Audio" Lightning.wav &
 fi
 
