@@ -165,3 +165,5 @@ echo "export LANG=fr_FR@euro" >> /etc/profile
 echo "export LC_ALL=fr_FR@euro" >> /etc/profile
 echo "export LC_CTYPE=fr_FR@euro" >> /etc/profile
 echo "export LANGUAGE=fr_FR@euro" >> /etc/profile
+cp /home/pi/.xbmc/userdata/addon_data/script.raspbmc.settings/settings.xml /home/pi/xbmc-settings.xml 
+cat /home/pi/xbmc-settings.xml | sed 's/<setting id="sys.service.cron" value="false" \/>/<setting id="sys.service.cron" value="true" \/>/' > /home/pi/.xbmc/userdata/addon_data/script.raspbmc.settings/settings.xml
