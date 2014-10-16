@@ -12,6 +12,13 @@ SLEEP=0.02
 
 source /home/pi/camuma.cfg
 
+if [ "$PORTABLE_BOX" -eq 1 ]; then
+	MEDIAPATH=/mnt/USB
+fi
+if [ "$PORTABLE_BOX" -eq 0 ]; then
+	MEDIAPATH=/mnt/music
+fi
+
 #echo $USE_PIONEER_VSX
 
 fadeout() {
@@ -69,11 +76,19 @@ case "$1" in
 		fadeout
 		#sudo dos2unix -n /media/USB/camuma.lst /home/pi/camuma.lst.unix
 		$MPC clear
-		cat /home/pi/camuma.lst.unix | grep $1 | cut -d':' -f2 | $MPC add
+		ALBUM=`cat /home/pi/camuma.lst.unix | grep $1 | cut -d':' -f2`
+		echo Album : $ALBUM
 		echo ID : $1
 		echo $1 > $CURRENTIDFILE
-		cat /home/pi/camuma.lst.unix | grep $1 | cut -d':' -f2
+		$MPC add "$ALBUM"
+		# cat /home/pi/camuma.lst.unix | grep $1 | cut -d':' -f2
+		echo Start playing
 		$MPC play
+		if [ "$KODI" -eq 1 ]; then
+			/home/pi/xbmc_pic.sh $MEDIAPATH/$ALBUM/folder.jpg
+		else
+			/usr/bin/fbi -T 1 $MEDIAPATH/$ALBUM/folder.jpg
+		fi
 		fadein
 		;;
     *)

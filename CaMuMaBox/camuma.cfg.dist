@@ -1,7 +1,7 @@
 #Config
 # PORTABLE_BOX
-# 0 : Network, ...
-# 1 : USB Key, ...
+# 0 : Network, /mnt/music
+# 1 : USB Key, /mnt/USB
 PORTABLE_BOX=1
 
 # USE_PIONEER_VSX
@@ -25,3 +25,6 @@ BLUETOOTH=1
 
 # IR
 IR=1
+
+# XBMC / KODI
+KODI=1
