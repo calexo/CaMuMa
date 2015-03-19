@@ -53,4 +53,6 @@ fi
 
 #~/qrdecode.sh &
 
+sudo /home/pi/update.sh &
+
 logger -t camuma "Boot OK - Ready"
