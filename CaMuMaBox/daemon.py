@@ -4,6 +4,7 @@ from socket import *
 import thread
 import subprocess
 import re
+# python-mpd2 - https://pypi.python.org/pypi/python-mpd2
 from mpd import MPDClient
 
 BUFF = 1024
@@ -83,6 +84,9 @@ def handler(clientsock,addr):
 			if "listalbums" == cmd:
 				listalbums = open("/home/pi/camuma.lst.unix","rb").read()
 				clientsock.send('RET\nLIST\n' + listalbums + '\nEND\n')
+			if "update" == cmd:
+				# client.update()
+				subprocess.check_call(["/home/pi/camuma.sh", "update"])
 
 			reres = re.search("([0-9]{6})",cmd)
 			if reres:

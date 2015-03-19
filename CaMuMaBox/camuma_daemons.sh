@@ -8,11 +8,9 @@ if [ ${RUNNING} -gt 0 ]; then
 	echo "${COMMAND} is already running."
 else
 	echo "Launching ${COMMAND}..."
+	logger -t camuma "Launching ${COMMAND}"
 	python ~pi/${COMMAND} &
 fi
-
-
-
 
 COMMAND="daemon.py"
 RUNNING=`ps -ef | grep ${COMMAND} |grep -v grep  | wc -l`
@@ -20,6 +18,7 @@ if [ ${RUNNING} -gt 0 ]; then
 	echo "${COMMAND} is already running."
 else
 	echo "Launching ${COMMAND}..."
+	logger -t camuma "Launching ${COMMAND}"
 	python ~pi/${COMMAND} &
 fi	
 
@@ -32,6 +31,7 @@ if [ "$BLUETOOTH" -eq 1 ]; then
 		echo "${COMMAND} is already running."
 	else
 		echo "Launching ${COMMAND}..."
+		logger -t camuma "Launching ${COMMAND}"
 		python ~pi/${COMMAND} &
 	fi
 fi
@@ -43,6 +43,7 @@ if [ "$NOKIA_SCREEN" -eq 1 ]; then
 		echo "${COMMAND} is already running."
 	else
 		echo "Launching ${COMMAND}..."
+		logger -t camuma "Launching ${COMMAND}"
 		python ~pi/${COMMAND} &
 	fi
 fi
@@ -55,6 +56,7 @@ if [ "$IR" -eq 1 ]; then
 		echo "${COMMAND} is already running."
 	else
 		echo "Launching ${COMMAND}..."
+		logger -t camuma "Launching ${COMMAND}"
 		python ~pi/${COMMAND} &
 	fi
 fi
@@ -66,12 +68,20 @@ if [ "$IR" -eq 1 ]; then
 		echo "${COMMAND} is already running."
 	else
 		echo "Launching ${COMMAND}..."
+		logger -t camuma "Launching ${COMMAND}"
 		python ~pi/${COMMAND} &
 	fi
 fi
 
-#~/qrdecode.sh &
+if [ "$CAMERA" -eq 1 ]; then
+	COMMAND="qrdecode.sh"
+	RUNNING=`ps -ef | grep ${COMMAND} |grep -v grep  | wc -l`
+	if [ ${RUNNING} -gt 0 ]; then
+		echo "${COMMAND} is already running."
+	else
+		echo "Launching ${COMMAND}..."
+		logger -t camuma "Launching ${COMMAND}"
+		~pi/${COMMAND} &
+	fi
+fi
 
-# clear logs
-# rm -f /var/log/messages
-# rm -f /var/log/

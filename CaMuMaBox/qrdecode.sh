@@ -1,4 +1,11 @@
-#!/bin/sh
-cd ~
+#!/bin/bash
+cd /home/pi
 
-/usr/bin/fswebcam -d /dev/video0 -r 640x480 qrcode.jpeg  --no-banner -l3 --exec "python qrdecode.py"
+while true
+do
+    echo Capturing...
+	/opt/vc/bin/raspistill -o  /run/shm/qrcode.jpg -w 640 -h 480 -t 1  --nopreview
+	echo Decoding...
+	python qrdecode.py
+ done
+ 

@@ -2,6 +2,7 @@
 
 MPC=`which mpc`
 BC="`which bc` -l"
+LOGGER="`which logger`"
 CURRENTIDFILE="/home/pi/current_id"
 STAT_FILE="/home/pi/stat_file"
 
@@ -20,6 +21,8 @@ if [ "$PORTABLE_BOX" -eq 0 ]; then
 fi
 
 #echo $USE_PIONEER_VSX
+#
+$LOGGER -t camuma "Arg : $1"
 
 fadeout() {
 	VOLUME=$(($NORMAL_VOLUME - 5))
@@ -28,7 +31,7 @@ fadeout() {
 	    $MPC volume $VOLUME > /dev/null
 	    VOLUME=$(($VOLUME - 5))
 	    sleep $SLEEP
-	    mpc volume
+	    $MPC volume
 	done
 }
 
@@ -40,7 +43,7 @@ fadein() {
 	    VOLUME=$(($VOLUME + 5))
 	    #sleep `echo "$FADE_TIME/(5*($NORMAL_VOLUME - $FADED_VOLUME))" | $BC`
 	    sleep $SLEEP
-	    mpc volume
+	    $MPC volume
 	done
 }
 
@@ -51,6 +54,22 @@ case "$1" in
     "poweroff")
         /usr/bin/expect ~pi/vsx_off.expect &
         ;;
+    "reboot")
+		sudo reboot
+		;;
+	"halt")
+		sudo halt
+		;;
+	"reload"|"update")
+		$MPC update
+		if [ "$PORTABLE_BOX" -eq 1 ]; then
+			echo "Update From USB"
+			sudo dos2unix -n /media/USB/camuma.lst /home/pi/camuma.lst.unix &
+		else
+			echo "Update From Network"
+			sudo dos2unix -n /mnt/music/camuma.lst /home/pi/camuma.lst.unix &
+		fi
+		;;
     "toggle"|"shuffle"|"status"|"random")
 		$MPC $1
 		;;
@@ -66,6 +85,7 @@ case "$1" in
 	"stop")
 		fadeout
 		$MPC stop
+		fadein
 		;;
 	"stats")
 		date
@@ -80,19 +100,28 @@ case "$1" in
 		echo Album : $ALBUM
 		echo ID : $1
 		echo $1 > $CURRENTIDFILE
+		$LOGGER -t camuma "Album : $ALBUM"
 		$MPC add "$ALBUM"
 		# cat /home/pi/camuma.lst.unix | grep $1 | cut -d':' -f2
+		if [ "$1" == "111111" ]; then
+			echo "Random On"
+			$MPC random on
+		else
+			echo "Random Off"
+			$MPC random off
+		fi
 		echo Start playing
 		$MPC play
-		if [ "$KODI" -eq 1 ]; then
-			/home/pi/xbmc_pic.sh $MEDIAPATH/$ALBUM/folder.jpg
-		else
-			/usr/bin/fbi -T 1 $MEDIAPATH/$ALBUM/folder.jpg
-		fi
 		fadein
+		if [ "$KODI" -eq 1 ]; then
+			/home/pi/xbmc_pic.sh "$MEDIAPATH/$ALBUM/folder.jpg"
+		else
+			/usr/bin/fbi -T 1 "$MEDIAPATH/$ALBUM/folder.jpg"
+		fi
 		;;
     *)
 		echo Error
+		$LOGGER -t camuma "Error"
 	;;
 esac	
 
