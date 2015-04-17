@@ -85,3 +85,12 @@ if [ "$CAMERA" -eq 1 ]; then
 	fi
 fi
 
+COMMAND="daemon_http.py"
+RUNNING=`ps -ef | grep ${COMMAND} |grep -v grep  | wc -l`
+if [ ${RUNNING} -gt 0 ]; then
+	echo "${COMMAND} is already running."
+else
+	echo "Launching ${COMMAND}..."
+	logger -t camuma "Launching ${COMMAND}"
+	~pi/${COMMAND} &
+fi

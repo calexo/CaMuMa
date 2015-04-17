@@ -99,10 +99,12 @@ easy_install python-mpd2
 #chmod 600 /etc/cifs.credentials
 #mkdir /mnt/music
 #mount /mnt/music
-echo IR
+echo IR - Nokia LCD Screen
 if [ "$IR" -eq 1 ]; then
-	/etc/modprobe.d/raspi-blacklist.conf
-	comment blacklist spi-bcm2708
+	# comment blacklist spi-bcm2708
+	echo > /etc/modprobe.d/raspi-blacklist.conf
+	echo "dtparam=spi=on" >> /boot/config.txt
+
 	pip install wiringpi wiringpi2
 	pip install spidev
 
@@ -151,6 +153,12 @@ if [ "$IR" -eq 1 ]; then
 	#mode2 -d /dev/lirc0
 
 	#sudo irrecord -d /dev/lirc0 tst_lircd.conf
+	#
+	
+
+	cp /etc/lirc/hardware.conf hardware.conf.old
+	cat hardware.conf.old | sed 's/lirc_rpi/lirc_dev/' > /etc/lirc/hardware.conf
+
 	cp tst_lircd2.conf /etc/lirc/lircd.conf
 	sudo /etc/init.d/lirc start
 fi
