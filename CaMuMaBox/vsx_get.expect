@@ -1,0 +1,5 @@
+spawn telnet 192.168.1.56
+send "\r"
+expect "R"
+send "\r?V\r"
+expect -re "VOL.*"

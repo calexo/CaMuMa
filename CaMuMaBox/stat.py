@@ -31,6 +31,8 @@ while 1:
         mpc = subprocess.check_output(["/usr/bin/mpc" , "-f", "%artist% $ %album% $ %title% $ %file%"])
         mpcs = str.splitlines(mpc)
 
+        vsx = subprocess.check_output(["/home/pi/vsx_get.sh"])
+
         #print mpc
 
         if 1: #"[" in  mpc:
@@ -52,9 +54,6 @@ while 1:
                         line_info=0
                         line_position=0
 
-
-                #m = re.match(r"\[(\w+)\]\s+\#([0-9]+)\/([0-9]+)\s+([\d\:]+).*",mpcs[1])
-                #m = re.match(r"\[(\w+)\].*",mpcs[1])
 
                 #Line 2 : Status, position
                 m = re.match(r"\[(\w+)\]\s+\#([0-9]+)\/([0-9]+)\s+([\d\:]+)\/([\d\:]+)\s+\((\d+)\%\).*",mpcs[line_position])
@@ -102,6 +101,7 @@ while 1:
                         f.write("consume:" + consume + "\n")
                         f.write("updating:" + updating + "\n")
                         f.write("filetype:" + filetype + "\n")
+                        f.write("vsx:" + vsx )
                         f.write("END\n")
                         f.close()
                 except:
@@ -120,8 +120,3 @@ while 1:
                         print("Can't write screen")
 
                 time.sleep(1)
-
-
-        #print "Stat:" + stat
-        #print "Song:" + str(piste) + "/" + str(pistetot) + " " + duree + "/" + dureetot + "("+str(progress)+"/100) : "  + song + " by " + artist + ", on " + album
-        #print "Vol "  + str(volume) + " rpt " + repeat + " random " + random + " sgl " + single + " consume " + consume

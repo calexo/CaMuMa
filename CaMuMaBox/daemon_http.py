@@ -92,6 +92,14 @@ class Handler(BaseHTTPRequestHandler):
             client.stop()
         if "update" == cmd:
             subprocess.check_call(["/home/pi/camuma.sh", "update"])
+        if "reboot" == cmd:
+            subprocess.check_call(["/home/pi/camuma.sh", "reboot"])
+        if "halt" == cmd:
+            subprocess.check_call(["/home/pi/camuma.sh", "halt"])
+        if "modeusb" == cmd:
+            subprocess.check_call(["/home/pi/camuma.sh", "modeusb"])
+        if "modenet" == cmd:
+            subprocess.check_call(["/home/pi/camuma.sh", "modenet"])
 
         reres = re.search("([0-9]{6})",cmd)
         if reres:

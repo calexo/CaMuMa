@@ -70,6 +70,19 @@ case "$1" in
 			sudo dos2unix -n /mnt/music/camuma.lst /home/pi/camuma.lst.unix &
 		fi
 		;;
+	"modeusb")
+		mv /home/pi/camuma.cfg /home/pi/camuma.cfg.old
+		sed 's/PORTABLE_BOX=0/PORTABLE_BOX=1/' /home/pi/camuma.cfg.old > /home/pi/camuma.cfg
+		rm /home/pi/mpd.conf
+		ln -s /home/pi/mpd-USB.conf /home/pi/mpd.conf
+		;;
+	"modenet")
+		mv /home/pi/camuma.cfg /home/pi/camuma.cfg.old
+		sed 's/PORTABLE_BOX=1/PORTABLE_BOX=0/' /home/pi/camuma.cfg.old > /home/pi/camuma.cfg
+		rm /home/pi/mpd.conf
+		ln -s /home/pi/mpd-net.conf /home/pi/mpd.conf
+		;;
+
     "toggle"|"shuffle"|"status"|"random")
 		$MPC $1
 		;;
